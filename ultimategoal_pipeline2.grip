@@ -1,0 +1,198 @@
+<grip:Pipeline>
+  <sources>
+    <grip:ImageFile>
+      <property name="path" value="C:\Users\d4n1_\Desktop\UltimateGoalPyCV\img_rings\4.jpg"/>
+    </grip:ImageFile>
+    <grip:Camera>
+      <property name="deviceNumber" value="0"/>
+    </grip:Camera>
+    <grip:ImageFile>
+      <property name="path" value="C:\Users\d4n1_\Desktop\UltimateGoalPyCV\img_rings\1.jpg"/>
+    </grip:ImageFile>
+    <grip:ImageFile>
+      <property name="path" value="C:\Users\d4n1_\Desktop\UltimateGoalPyCV\img_rings\0.jpg"/>
+    </grip:ImageFile>
+  </sources>
+  <steps>
+    <grip:Step name="Resize Image">
+      <grip:Input step="0" socket="0"/>
+      <grip:Input step="0" socket="1">
+        <value>640.0</value>
+      </grip:Input>
+      <grip:Input step="0" socket="2">
+        <value>480.0</value>
+      </grip:Input>
+      <grip:Input step="0" socket="3">
+        <value>LINEAR</value>
+      </grip:Input>
+      <grip:Output step="0" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="Blur">
+      <grip:Input step="1" socket="0"/>
+      <grip:Input step="1" socket="1">
+        <value>BOX</value>
+      </grip:Input>
+      <grip:Input step="1" socket="2">
+        <value>5.6603773584905674</value>
+      </grip:Input>
+      <grip:Output step="1" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="HSV Threshold">
+      <grip:Input step="2" socket="0"/>
+      <grip:Input step="2" socket="1">
+        <value>
+          <double>8.446981015790435</double>
+          <double>43.741098662849254</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="2" socket="2">
+        <value>
+          <double>181.00395338142792</double>
+          <double>253.16016738674898</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="2" socket="3">
+        <value>
+          <double>115.04061714101688</double>
+          <double>247.45084150389948</double>
+        </value>
+      </grip:Input>
+      <grip:Output step="2" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="HSV Threshold">
+      <grip:Input step="3" socket="0"/>
+      <grip:Input step="3" socket="1">
+        <value>
+          <double>8.474576271186441</double>
+          <double>43.63636363636364</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="3" socket="2">
+        <value>
+          <double>182.48587570621467</double>
+          <double>243.63636363636363</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="3" socket="3">
+        <value>
+          <double>114.70652908569495</double>
+          <double>247.37730463782646</double>
+        </value>
+      </grip:Input>
+      <grip:Output step="3" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="CV erode">
+      <grip:Input step="4" socket="0"/>
+      <grip:Input step="4" socket="1"/>
+      <grip:Input step="4" socket="2"/>
+      <grip:Input step="4" socket="3">
+        <value>2.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="4">
+        <value>BORDER_CONSTANT</value>
+      </grip:Input>
+      <grip:Input step="4" socket="5"/>
+      <grip:Output step="4" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="CV dilate">
+      <grip:Input step="5" socket="0"/>
+      <grip:Input step="5" socket="1"/>
+      <grip:Input step="5" socket="2"/>
+      <grip:Input step="5" socket="3">
+        <value>20.0</value>
+      </grip:Input>
+      <grip:Input step="5" socket="4">
+        <value>BORDER_CONSTANT</value>
+      </grip:Input>
+      <grip:Input step="5" socket="5"/>
+      <grip:Output step="5" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="Mask">
+      <grip:Input step="6" socket="0"/>
+      <grip:Input step="6" socket="1"/>
+      <grip:Output step="6" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Find Blobs">
+      <grip:Input step="7" socket="0"/>
+      <grip:Input step="7" socket="1">
+        <value>800.0</value>
+      </grip:Input>
+      <grip:Input step="7" socket="2">
+        <value>
+          <double>0.5084745762711864</double>
+          <double>1.0</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="7" socket="3">
+        <value>false</value>
+      </grip:Input>
+      <grip:Output step="7" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Find Contours">
+      <grip:Input step="8" socket="0"/>
+      <grip:Input step="8" socket="1">
+        <value>false</value>
+      </grip:Input>
+      <grip:Output step="8" socket="0" previewed="true"/>
+    </grip:Step>
+  </steps>
+  <connections>
+    <grip:Connection>
+      <grip:Output step="5" socket="0" previewed="false"/>
+      <grip:Input step="6" socket="1"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="4" socket="0" previewed="true"/>
+      <grip:Input step="5" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="6" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="6" socket="0" previewed="true"/>
+      <grip:Input step="7" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="2" socket="0" previewed="true"/>
+      <grip:Input step="4" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="3" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="3" socket="0" previewed="false"/>
+      <grip:Input step="8" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output source="0" socket="0" previewed="false"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+  </connections>
+  <settings>
+    <teamNumber>0</teamNumber>
+    <publishAddress>roboRIO-0-FRC.local</publishAddress>
+    <deployAddress>roboRIO-0-FRC.local</deployAddress>
+    <deployDir>/home/lvuser</deployDir>
+    <deployUser>lvuser</deployUser>
+    <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
+    <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:MaxNewSize=16m</deployJvmOptions>
+  </settings>
+  <codeGenerationSettings>
+    <language>Java</language>
+    <className>GripPipeline</className>
+    <implementWpilibPipeline>false</implementWpilibPipeline>
+    <saveDir>C:\Users\d4n1_\Desktop</saveDir>
+    <packageName></packageName>
+    <moduleName>grip</moduleName>
+  </codeGenerationSettings>
+</grip:Pipeline>

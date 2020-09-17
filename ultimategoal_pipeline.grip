@@ -1,0 +1,139 @@
+<grip:Pipeline>
+  <sources>
+    <grip:ImageFile>
+      <property name="path" value="C:\Users\d4n1_\Desktop\UltimateGoalPyCV\img_rings\4.jpg"/>
+    </grip:ImageFile>
+  </sources>
+  <steps>
+    <grip:Step name="CV resize">
+      <grip:Input step="0" socket="0"/>
+      <grip:Input step="0" socket="1"/>
+      <grip:Input step="0" socket="2">
+        <value>0.25</value>
+      </grip:Input>
+      <grip:Input step="0" socket="3">
+        <value>0.25</value>
+      </grip:Input>
+      <grip:Input step="0" socket="4">
+        <value>INTER_LINEAR</value>
+      </grip:Input>
+      <grip:Output step="0" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="Blur">
+      <grip:Input step="1" socket="0"/>
+      <grip:Input step="1" socket="1">
+        <value>BOX</value>
+      </grip:Input>
+      <grip:Input step="1" socket="2">
+        <value>50.0</value>
+      </grip:Input>
+      <edu.wpi.grip.core.sockets.CudaSocket step="1" socket="3">
+        <value>false</value>
+      </edu.wpi.grip.core.sockets.CudaSocket>
+      <grip:Output step="1" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="HSV Threshold">
+      <grip:Input step="2" socket="0"/>
+      <grip:Input step="2" socket="1">
+        <value>
+          <double>0.0</double>
+          <double>52.28714524207011</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="2" socket="2">
+        <value>
+          <double>67.22678512618955</double>
+          <double>181.55252943442073</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="2" socket="3">
+        <value>
+          <double>105.67051429044652</double>
+          <double>208.83163513107698</double>
+        </value>
+      </grip:Input>
+      <grip:Output step="2" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="CV erode">
+      <grip:Input step="3" socket="0"/>
+      <grip:Input step="3" socket="1"/>
+      <grip:Input step="3" socket="2"/>
+      <grip:Input step="3" socket="3">
+        <value>8.0</value>
+      </grip:Input>
+      <grip:Input step="3" socket="4">
+        <value>BORDER_REFLECT</value>
+      </grip:Input>
+      <grip:Input step="3" socket="5"/>
+      <grip:Output step="3" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="Mask">
+      <grip:Input step="4" socket="0"/>
+      <grip:Input step="4" socket="1"/>
+      <grip:Output step="4" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Find Blobs">
+      <grip:Input step="5" socket="0"/>
+      <grip:Input step="5" socket="1">
+        <value>300.0</value>
+      </grip:Input>
+      <grip:Input step="5" socket="2">
+        <value>
+          <double>0.0</double>
+          <double>1.0</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="5" socket="3">
+        <value>true</value>
+      </grip:Input>
+      <grip:Output step="5" socket="0" previewed="true"/>
+    </grip:Step>
+  </steps>
+  <connections>
+    <grip:Connection>
+      <grip:Output source="0" socket="0" previewed="false"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="3" socket="0" previewed="false"/>
+      <grip:Input step="4" socket="1"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="4" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="4" socket="0" previewed="true"/>
+      <grip:Input step="5" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="2" socket="0" previewed="false"/>
+      <grip:Input step="3" socket="0"/>
+    </grip:Connection>
+  </connections>
+  <settings>
+    <teamNumber>0</teamNumber>
+    <publishAddress>roboRIO-0-FRC.local</publishAddress>
+    <deployAddress>roboRIO-0-FRC.local</deployAddress>
+    <deployDir>/home/lvuser</deployDir>
+    <deployUser>lvuser</deployUser>
+    <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
+    <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:MaxNewSize=16m</deployJvmOptions>
+  </settings>
+  <codeGenerationSettings>
+    <language>Java</language>
+    <className>GripPipeline</className>
+    <implementWpilibPipeline>false</implementWpilibPipeline>
+    <saveDir>C:\Users\d4n1_\GRIP</saveDir>
+    <packageName></packageName>
+    <moduleName>grip</moduleName>
+  </codeGenerationSettings>
+</grip:Pipeline>
